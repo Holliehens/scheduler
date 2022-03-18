@@ -43,27 +43,25 @@ export default function useApplicationData() {
 
   function bookInterview(id, interview) {
     //grab current day
-    const currentDay = state.days.find(day => {
+    const currentDay = state.days.find((day) => {
       if (state.day === day.name) {
-        return true
+        return true;
       }
-    })
+    });
     const updatedDay = {
       ...currentDay,
       spots: currentDay.spots - 1,
-    }
-   
-    
+    };
+
     const daysArray = [...state.days];
-    const dayIndex = state.days.findIndex(day => {  // Only need findIndex //
+    const dayIndex = state.days.findIndex((day) => {
+      // Only need findIndex //
       if (state.day === day.name) {
-        return true
+        return true;
       }
-    })
+    });
     daysArray[dayIndex] = updatedDay;
     console.log("DAYSARRAY:", daysArray);
-
-
 
     const appointment = {
       ...state.appointments[id],
@@ -78,33 +76,32 @@ export default function useApplicationData() {
       setState({
         ...state,
         appointments,
-        days: daysArray
+        days: daysArray,
       })
     );
   }
 
   function cancelInterview(id, interview) {
-    const currentDay = state.days.find(day => {
+    const currentDay = state.days.find((day) => {
       if (state.day === day.name) {
-        return true
+        return true;
       }
-    })
+    });
     const updatedDay = {
       ...currentDay,
       spots: currentDay.spots + 1,
-    }
+    };
     console.log("CURRENT DAY:", currentDay);
     console.log("UPDATED DAY:", updatedDay);
-    
+
     const daysArray = [...state.days];
-    const dayIndex = state.days.findIndex(day => {
+    const dayIndex = state.days.findIndex((day) => {
       if (state.day === day.name) {
-        return true
+        return true;
       }
-    })
+    });
     daysArray[dayIndex] = updatedDay;
     console.log("DAYSARRAY:", daysArray);
-
 
     const appointment = {
       ...state.appointments[id],
@@ -119,7 +116,7 @@ export default function useApplicationData() {
       setState({
         ...state,
         appointments,
-        days: daysArray
+        days: daysArray,
       })
     );
   }
