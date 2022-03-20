@@ -28,41 +28,7 @@ export default function useApplicationData() {
     });
   }, []);
 
-  /* day.spots = spots 
-  calculate spots:
-  
-  if  (state.days.day.appointments === null)
-    return day.spots
-  
-   subtract one from that day's spots
-   set new spots number
-   update current state value
-
-
-  */
-
   function bookInterview(id, interview) {
-    //grab current day
-    const currentDay = state.days.find((day) => {
-      if (state.day === day.name) {
-        return true;
-      }
-    });
-    const updatedDay = {
-      ...currentDay,
-      spots: currentDay.spots - 1,
-    };
-
-    const daysArray = [...state.days];
-    const dayIndex = state.days.findIndex((day) => {
-      // Only need findIndex //
-      if (state.day === day.name) {
-        return true;
-      }
-    });
-    daysArray[dayIndex] = updatedDay;
-    console.log("DAYSARRAY:", daysArray);
-
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview },
@@ -72,11 +38,26 @@ export default function useApplicationData() {
       [id]: appointment,
     };
 
+    const selectedDay = state.days.find((day) => state.day === day.name);
+
+    const numberOfSpotsRemaining = selectedDay.appointments
+      .map((id) => appointments[id].interview)
+      .filter((interview) => interview === null).length;
+
+    selectedDay.spots = numberOfSpotsRemaining;
+
+    const updatedListOfDays = [...state.days].map((day) => {
+      if (state.day === day.name) {
+        return selectedDay;
+      }
+      return day;
+    });
+
     return axios.put(`/api/appointments/${id}`, appointment).then((response) =>
       setState({
         ...state,
         appointments,
-        days: daysArray,
+        days: updatedListOfDays,
       })
     );
   }
@@ -91,8 +72,6 @@ export default function useApplicationData() {
       ...currentDay,
       spots: currentDay.spots + 1,
     };
-    console.log("CURRENT DAY:", currentDay);
-    console.log("UPDATED DAY:", updatedDay);
 
     const daysArray = [...state.days];
     const dayIndex = state.days.findIndex((day) => {
@@ -101,7 +80,6 @@ export default function useApplicationData() {
       }
     });
     daysArray[dayIndex] = updatedDay;
-    console.log("DAYSARRAY:", daysArray);
 
     const appointment = {
       ...state.appointments[id],

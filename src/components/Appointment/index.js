@@ -41,6 +41,10 @@ export default function Appointment(props) {
       interviewer,
     };
 
+    if (interviewer === null) {
+    transition(ERROR_SAVE)
+    return;
+    }
     transition(SAVING);
 
     bookInterview(id, interview)
