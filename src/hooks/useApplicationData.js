@@ -45,14 +45,14 @@ export default function useApplicationData() {
       .filter((interview) => interview === null).length;
 
     selectedDay.spots = numberOfSpotsRemaining;
-
+    
     const updatedListOfDays = [...state.days].map((day) => {
       if (state.day === day.name) {
         return selectedDay;
       }
       return day;
     });
-
+    
     return axios.put(`/api/appointments/${id}`, appointment).then((response) =>
       setState({
         ...state,

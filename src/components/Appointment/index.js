@@ -40,8 +40,8 @@ export default function Appointment(props) {
       student: name,
       interviewer,
     };
-
-    if (interviewer === null) {
+    
+    if (interviewer === null || interview.student.name === undefined) {
     transition(ERROR_SAVE)
     return;
     }
