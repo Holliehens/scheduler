@@ -41,7 +41,7 @@ export default function Appointment(props) {
       interviewer,
     };
     
-    if (interviewer === null || interview.student.name === undefined) {
+    if (interviewer === null || !interview.student) {
     transition(ERROR_SAVE)
     return;
     }
@@ -69,7 +69,7 @@ export default function Appointment(props) {
   };
 
   return (
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
       <Header time={props.time} />
       {mode === EMPTY && (
         <Empty onAdd={() => transition(CREATE)} onCancel={() => back(EMPTY)} />

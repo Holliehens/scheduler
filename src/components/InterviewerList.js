@@ -6,8 +6,8 @@ import InterviewerListItem from "./InterviewerListItem";
 
 import PropTypes from 'prop-types';
 
-export default function InterviewerList(props) {
-  const interviewerList = props.interviewers.map((interviewer) => {
+function InterviewerList(props) {
+  const interviewerList = props.interviewers && props.interviewers.map((interviewer) => {
     return (
       <InterviewerListItem
         key={interviewer.id}
@@ -25,6 +25,10 @@ export default function InterviewerList(props) {
       <ul className="interviewers__list">{interviewerList}</ul>
     </section>
   );
+
+  InterviewerList.propTypes = {
+    interviewers: PropTypes.array.isRequired
+  };
 }
 
-
+export default InterviewerList;

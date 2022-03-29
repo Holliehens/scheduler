@@ -24,7 +24,7 @@ export default function Application(props) {
 
   const schedule = dailyAppointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
-
+    // console.log("Appointment:", appointment);
     return (
       <Appointment
         key={appointment.id}
