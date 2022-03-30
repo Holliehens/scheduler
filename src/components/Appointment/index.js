@@ -88,14 +88,14 @@ export default function Appointment(props) {
       )}
       {mode === CONFIRM && (
         <Confirm
-          message="Are you sure you want to Delete?"
+          message="Are you sure you want to delete?"
           onConfirm={cancel}
           onCancel={back}
         />
       )}
       {mode === SAVING && <Status message="Saving..." />}
       {mode === DELETING && <Status message="Deleting..." />}
-      {mode === SHOW && props.interview && (
+      {mode === SHOW && (
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
@@ -108,7 +108,7 @@ export default function Appointment(props) {
       )}
       {mode === ERROR_DELETE && (
         <Error
-          message="Are you sure you would like to delete?"
+          message="Error Deleting Appointment"
           onClose={back}
         />
       )}

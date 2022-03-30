@@ -82,7 +82,20 @@ export default {
   }),
 
    put: jest.fn(url => {
-    if (url === "/api/appointments/1") {
+    
+       try {
+        return Promise.resolve({
+          status: 204,
+          statusText: "No Content",
+          data: fixtures.appointments[2]
+        });
+      } catch {
+        console.log("ERROR");
+      }
+   }),
+   
+   delete: jest.fn(url => {
+    
       try {
         return Promise.resolve({
           status: 204,
@@ -92,6 +105,6 @@ export default {
       } catch {
         console.log("ERROR");
       }
-    }
+  
    })
 };
