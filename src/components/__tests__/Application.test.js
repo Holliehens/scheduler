@@ -10,7 +10,7 @@ afterEach(cleanup);
 
 describe("Application", () => {
 
-xit("defaults to Monday and changes the schedule when a new day is selected", async () => {
+it("defaults to Monday and changes the schedule when a new day is selected", async () => {
 
   const { getByText } = render(<Application />);
 
@@ -20,7 +20,7 @@ xit("defaults to Monday and changes the schedule when a new day is selected", as
   });
 });
 
-xit("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
+it("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
    
   // 1. Render the Application.
   const { container, debug } = render(<Application />);
@@ -57,7 +57,7 @@ xit("loads data, books an interview and reduces the spots remaining for the firs
   expect(getByText(day, "no spots remaining")).toBeInTheDocument();
   });
 
-  xit("loads data, cancels an interview and increases the spots remaining for Monday by 1", async () => {
+  it("loads data, cancels an interview and increases the spots remaining for Monday by 1", async () => {
 
     // 1. Render the Application.
   const { container, debug } = render(<Application />);
@@ -83,7 +83,7 @@ xit("loads data, books an interview and reduces the spots remaining for the firs
     fireEvent.click(getByText(appointment, "Confirm"));
 
   // 6. Check that the element with the text "Deleting" is displayed.
-  expect(getByText(appointment, "Deleting", { exact: false})).toBeInTheDocument();
+  expect(getByText(appointment, "Deleting", { exact: false })).toBeInTheDocument();
 
   // 7. Wait until the element with the "Add" button is displayed.
   await waitForElement(() => getByAltText(appointment, "Add"));
@@ -97,7 +97,7 @@ xit("loads data, books an interview and reduces the spots remaining for the firs
   // debug();
   })
   
-  xit("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
+  it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
 
     // 1. Render the Application.
   const { container, debug } = render(<Application />);
@@ -123,7 +123,7 @@ xit("loads data, books an interview and reduces the spots remaining for the firs
 
   })
 
-  xit("shows the save error when failing to save an appointment", async () => {
+  it("shows the save error when failing to save an appointment", async () => {
      axios.put.mockRejectedValueOnce();
 
    // 1. Render the Application.
@@ -147,8 +147,8 @@ xit("loads data, books an interview and reduces the spots remaining for the firs
     
   });
 
-  it("shows the delete error when failing to delete an existing appointment", async () => {
-    axios.put.mockRejectedValueOnce();
+  it.only("shows the delete error when failing to delete an existing appointment", async () => {
+    //  axios.put.mockRejectedValueOnce();
 
       // 1. Render the Application.
    const { container, debug } = render(<Application />);
@@ -156,44 +156,18 @@ xit("loads data, books an interview and reduces the spots remaining for the firs
    await waitForElement(() => getByText(container, "Archie Cohen"));
    
    // 3. Click the "Delete" button on the booked appointment.
-  //  const appointment = getAllByTestId(container, "appointment").find(
-  //   appointment => queryByText(appointment, "Archie Cohen")
-  // );
-  const appointment = getAllByTestId(container, "appointment")[0];
-  console.log("[0]APPOINMTENT:", appointment);
-  fireEvent.click(queryByAltText(container, "Delete"));
-  console.log("[1]CLICKED:");
-  // 4. Click the "Confirm" button on that same appointment.
-  fireEvent.click(getByText(container, "Confirm"));
-  console.log("[2]CONFIRMED:");
-  //5."Error Deleting Appointment"
+ 
+  const appointments = getAllByTestId(container, "appointment");
+  const appointment = appointments[1];
+  fireEvent.click(queryByAltText(appointment, "Delete"));
   
-//  await waitForElement(() => 
-//  getByText(container, "Error Deleting Appointment"));
-  await waitForElement(() => {
-    return getByText(container, 'Error')
+  // 4. Click the "Confirm" button on that same appointment.
+  fireEvent.click(getByText(appointment, "Confirm"));
+
+  axios.put.mockRejectedValueOnce();
+  //5."Error Deleting Appointment"
   });
   
+
+
    
- });
-});
-
-/* xit("shows the save error when failing to save an appointment", async () => {
-    axios.put.mockRejectedValueOnce();
-
-    const { container, debug } = render(<Application />);
-    await waitForElement( () => getByText(container, 'Archie Cohen'));
-    const appointment = getAllByTestId(container, "appointment")[0];
-
-    // ----- Adding the events specific to this appointment to test the save action ---- //
-    fireEvent.click(getByAltText(appointment, "Add"));
-    fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
-      target: { value: "Lydia Miller-Jones" }
-    });
-    fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
-    fireEvent.click(getByText(appointment, "Save"))
-    expect(getByText(appointment, "SAVING")).toBeInTheDocument();
-    await waitForElement(() => {
-      return getByText(container, 'Error')
-    });
-  }) */
