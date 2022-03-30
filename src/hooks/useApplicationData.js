@@ -24,7 +24,6 @@ export default function useApplicationData() {
         appointments: all[1].data,
         interviewers: all[2].data,
       }));
-      
     });
   }, []);
 
@@ -45,7 +44,7 @@ export default function useApplicationData() {
       .filter((interview) => interview === null).length;
 
     selectedDay.spots = numberOfSpotsRemaining;
-    
+
     const updatedListOfDays = [...state.days].map((day) => {
       if (state.day === day.name) {
         return selectedDay;
@@ -54,23 +53,20 @@ export default function useApplicationData() {
     });
     console.log("ID;", id);
     console.log("APPOINTMENT", appointment);
-    // try {
-      return axios.put(`/api/appointments/${id}`, appointment).then(() =>
-        setState({
-          ...state,
-          appointments,
-          days: updatedListOfDays
-        })
-      )
-      //.catch(e => console.log("Catch", e));
-    // } catch {console.log("Error")};
+
+    return axios.put(`/api/appointments/${id}`, appointment).then(() =>
+      setState({
+        ...state,
+        appointments,
+        days: updatedListOfDays,
+      })
+    );
   }
 
   function cancelInterview(id, interview) {
-
     const appointment = {
       ...state.appointments[id],
-      interview: null
+      interview: null,
     };
     const appointments = {
       ...state.appointments,
@@ -84,7 +80,7 @@ export default function useApplicationData() {
       .filter((interview) => interview === null).length;
 
     selectedDay.spots = numberOfSpotsRemaining;
-    
+
     const updatedListOfDays = [...state.days].map((day) => {
       if (state.day === day.name) {
         return selectedDay;
@@ -96,7 +92,7 @@ export default function useApplicationData() {
       setState({
         ...state,
         appointments,
-        days: updatedListOfDays
+        days: updatedListOfDays,
       })
     );
   }

@@ -24,6 +24,12 @@ npm run storybook
 ## Use the browser to navigate to:
 http://localhost:8000
 
+## Running the Scheduler API:
+- Clone the API from  [Here](https://github.com/lighthouse-labs/scheduler-api)
+- Follow the instructions to setup the Scheduler API
+- Run the server with the command `npm start`
+
+
 ![Interview Scheduler](https://user-images.githubusercontent.com/76976206/159186579-d687f748-30cb-421a-90c6-cd2a778c1ab2.png)
 
 ![Error Interview Scheduler](https://user-images.githubusercontent.com/76976206/159186679-d934d516-746f-4340-9243-33ccb8936896.png)
